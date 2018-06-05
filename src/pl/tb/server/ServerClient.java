@@ -100,11 +100,12 @@ public class ServerClient extends Thread {
 							else {
 								playerNick = opponent;
 								points = sc.getPlayerPoints().get(opponent);
+								++clientNumber;
 								break;
 							}
 						}
-						else 
-							++clientNumber;
+//						else 
+								
 					}
 					
 				}

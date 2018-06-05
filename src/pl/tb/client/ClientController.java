@@ -94,6 +94,7 @@ public class ClientController {
 		
 		playerLogIn(); //If the player input correct nick, will be connected to the server.
 		connectClientToServer();  //Establishes connection to the server.
+		
 	}
 
 	@FXML
@@ -171,6 +172,7 @@ public class ClientController {
 			if (tokens[7].equals("CLIENT")) { //Check if the message is for updating CLIENTs details or just CHAT.
 				if (tokens[1].equals(this.thisNick)) { //This checks if the information should update this client or the another one
 					lblPlayer1.setText(tokens[1]);
+					lblAnswer.setText(tokens[4]);
 					progbPlayer1.setProgress((double) (Double.parseDouble(tokens[2]) / controllersUpdater.MAX_POINTS));
 					lblPlayer1Points.setText(tokens[2]);
 					
@@ -178,10 +180,14 @@ public class ClientController {
 					if (this.thisNick.equals(tokens[8])) {
 						btnTrue.setDisable(true);
 						btnFalse.setDisable(true);
+						lblAnswer.setVisible(false);
+//						btnRollDice.setDisable(false);
 					}
 					else {
 						btnTrue.setDisable(false);
 						btnFalse.setDisable(false);
+//						btnRollDice.setDisable(true);
+						lblAnswer.setVisible(true);
 					}
 					
 				}
@@ -195,10 +201,14 @@ public class ClientController {
 					if (this.thisNick.equals(tokens[8])) {
 						btnTrue.setDisable(true);
 						btnFalse.setDisable(true);
+//						btnRollDice.setDisable(false);
+						lblAnswer.setVisible(false);
 					}
 					else {
 						btnTrue.setDisable(false);
 						btnFalse.setDisable(false);
+//						btnRollDice.setDisable(true);
+						lblAnswer.setVisible(true);
 					}
 				}
 			
