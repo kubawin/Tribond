@@ -21,10 +21,10 @@ public class ServerClient extends Thread {
 	String[] actionToken;
 	HashMap<String, Integer> playerPointsTable;
 	int numberOfClients = 1;
-	int dice = 0;
 	
 	Questions questions;
 	String[] questionSet;
+	private int dice = 0;
 	
 	public ServerClient(ServerConn serverConn, Socket socket) {
 		this.socket = socket;
@@ -50,6 +50,7 @@ public class ServerClient extends Thread {
 			String playerByTheTable = " ";
 			int points = 0;
 			
+
 			
 			while ((message = bufferReader.readLine()) != null) {
 				System.out.println("Message from client: " + message);
@@ -60,11 +61,12 @@ public class ServerClient extends Thread {
 					playerNick = actionToken[1];
 					playerPointsTable.put(playerNick, 0);
 					token = "CLIENT";
-					playerByTheTable = "Oczekiwanie na pierwszy rzut koœci¹.";					
+					playerByTheTable = "Roll";					
 				} else if (actionToken[0].equals("QUESTION")) {
 					token = "CLIENT";
 					playerByTheTable = actionToken[1];
-					dice = (int)(Math.random()*5 + 1);	
+					dice = (int)(Math.random()*5 + 1);
+				
 					
 					if (questions.getAmountOfQuestions() ==0) questions.loadQuestions(); //Reloading questions
 					int questionNumber = (int) (Math.random() * questions.getAmountOfQuestions());
@@ -80,17 +82,17 @@ public class ServerClient extends Thread {
 					token = "CLIENT";
 					String opponent = actionToken[1];
 					Boolean approved = Boolean.parseBoolean(actionToken[2]);
-					question = "Ruæ kostk¹ i wylosuj pytanie.";
+					question = "Roll a dice and answer question.";
 					playerByTheTable = actionToken[3];
 					clientNumber = 1;
 					
 					//For each client we check its points and if the answer was correct we add 4 point otherwise points remains the same
 					//In this class we have HashMap object playerPointsTable which can be returned in method getPlayerPoints.
-					//The below for loop works on a ServerClient object, so thansk to that we can check each client points by invokin getPlayerPoints
+					//The below for loop works on a ServerClient object, so thank to that we can check each client points by invokin getPlayerPoints
 					for (ServerClient sc : clientList) {
 						if (sc.getPlayerPoints().get(opponent) != null) {
 							if (approved == true) {
-								sc.getPlayerPoints().compute(opponent, (k,v) -> v += 4);
+								sc.getPlayerPoints().compute(opponent, (k,v) -> v += dice);
 								points = sc.getPlayerPoints().get(opponent);
 								playerNick = opponent;
 								break;

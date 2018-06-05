@@ -46,22 +46,34 @@
                   <Button fx:id="btnRollDice" mnemonicParsing="false" onAction="#rollDice" prefHeight="31.0" prefWidth="127.0" text="Roll Dices">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin></Button>
-                  <Label fx:id="lblDiceCategory" prefHeight="52.0" prefWidth="108.0" text="Points?" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Label fx:id="lblDiceCategory" prefHeight="52.0" prefWidth="108.0" text="Dice result" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                   <TextArea fx:id="txtChatMonitor" prefHeight="118.0" prefWidth="214.0" GridPane.columnSpan="5" GridPane.rowIndex="5" GridPane.rowSpan="2" />
                   <Button fx:id="btnTrue" mnemonicParsing="false" onAction="#approvalForAnswer" prefHeight="31.0" prefWidth="127.0" text="True" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin></Button>
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
                   <Button fx:id="btnFalse" mnemonicParsing="false" onAction="#disapprovalForAnswer" prefHeight="31.0" prefWidth="127.0" text="False" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin></Button>
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
                   <TextArea fx:id="txtChatMessage" prefHeight="200.0" prefWidth="200.0" promptText="Wpisz wiadomość lub udziel odpowiedzi." GridPane.columnSpan="5" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets top="5.0" />
                      </GridPane.margin></TextArea>
-                  <Button fx:id="btnSendMsg" alignment="CENTER" mnemonicParsing="false" onAction="#sendChatMessage" prefHeight="31.0" prefWidth="69.0" text="Wyślij" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                  <Button fx:id="btnSendMsg" alignment="CENTER" mnemonicParsing="false" onAction="#sendChatMessage" prefHeight="31.0" prefWidth="69.0" text="Send" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="7">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -71,19 +83,40 @@
                   </Button>
                   <ProgressBar fx:id="progbPlayer1" cache="true" prefHeight="30.0" prefWidth="114.0" progress="0.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                   <ProgressBar fx:id="progbPlayer2" layoutX="529.0" layoutY="84.0" prefHeight="30.0" prefWidth="114.0" progress="0.0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                  <Label fx:id="lblAnswer" prefHeight="49.0" prefWidth="322.0" text="answer" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="1" />
-                  <Label fx:id="lblPlayer1" prefHeight="17.0" prefWidth="92.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="lblPlayer2" prefHeight="17.0" prefWidth="102.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lblAnswer" alignment="CENTER" prefHeight="49.0" prefWidth="322.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label fx:id="lblPlayer1" prefHeight="17.0" prefWidth="92.0" text="Player 1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="lblPlayer2" prefHeight="17.0" prefWidth="102.0" text="Player 2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                   <Label prefHeight="17.0" prefWidth="117.0" GridPane.rowIndex="3" />
-                  <Label fx:id="lblPlayerByTheTable_comment" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="117.0" text="Odpowiada: " GridPane.rowIndex="3" />
-                  <Label fx:id="lblPlayerByTheTable" prefHeight="27.0" prefWidth="348.0" text="Ania" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
+                  <Label fx:id="lblPlayerByTheTable_comment" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="117.0" text="Turn of: " GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="lblPlayerByTheTable" prefHeight="27.0" prefWidth="348.0" text="Nick" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPlayer1Points" alignment="CENTER" prefHeight="17.0" prefWidth="113.0" text="Label" GridPane.rowIndex="1" />
-                  <Label fx:id="lblPlayer2Points" alignment="CENTER" prefHeight="17.0" prefWidth="113.0" text="Label" GridPane.rowIndex="2" />
-                  <Label fx:id="lblQuestion" prefHeight="49.0" prefWidth="322.0" text="question" wrapText="true" GridPane.columnIndex="2" />
+                  <Label fx:id="lblPlayer1Points" alignment="CENTER" prefHeight="17.0" prefWidth="113.0" text="0" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="lblPlayer2Points" alignment="CENTER" prefHeight="17.0" prefWidth="113.0" text="0" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="lblQuestion" alignment="CENTER" prefHeight="49.0" prefWidth="322.0" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="4">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -18,12 +18,12 @@ Flag;North;Telephone;Poles
 Beehive;Rooster;Barber Shop;Combs
 Waitress;Iceberg;Tongue;Tips
 Instant;Hidden;Candid;Cameras
-Ripe;Dole;Chiquita Bananas
-Rain;Petrified;Sherwood Forests
+Ripe;Dole;Chiquita; Bananas
+Rain;Petrified;Sherwood; Forests
 String;Wax;Lima;Beans
-Primer;Concordance;Thesaurus Books
-Cowboy;Combat;Go-Go Boots
-Bugles;Funyuns;Cheet-tos Snacks (brand names)
+Primer;Concordance;Thesaurus; Books
+Cowboy;Combat;Go-Go; Boots
+Bugles;Funyuns;Cheet-tos; Snacks (brand names)
 Glenn;Henry;Harrison;Fords
 Pump;Clog;Loafer;Shoes
 Salsa;Rumba;Tango;Dances

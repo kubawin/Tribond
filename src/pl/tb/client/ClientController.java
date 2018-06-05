@@ -205,7 +205,7 @@ public class ClientController {
 				//Common controllers
 				lblQuestion.setText(tokens[3]);
 				lblPlayerByTheTable.setText(tokens[8]);
-				lblDiceCategory.setText("Liczba oczek: " + tokens[5] ); //+ "\nKategoria: " + tokens[4]);
+				lblDiceCategory.setText("Dice: " + tokens[5] ); //+ "\nKategoria: " + tokens[4]);
 				
 
 			
