@@ -61,7 +61,7 @@ public class ServerClient extends Thread {
 					playerNick = actionToken[1];
 					playerPointsTable.put(playerNick, 0);
 					token = "CLIENT";
-					playerByTheTable = "Roll";					
+					playerByTheTable = "Roll a dice";					
 				} else if (actionToken[0].equals("QUESTION")) {
 					token = "CLIENT";
 					playerByTheTable = actionToken[1];
@@ -83,8 +83,12 @@ public class ServerClient extends Thread {
 					String opponent = actionToken[1];
 					Boolean approved = Boolean.parseBoolean(actionToken[2]);
 					question = "Roll a dice and answer question.";
-					playerByTheTable = actionToken[3];
 					clientNumber = 1;
+					if (approved)
+						 playerByTheTable = actionToken[1];
+					else
+						playerByTheTable = actionToken[3]; 
+					
 					
 					//For each client we check its points and if the answer was correct we add 4 point otherwise points remains the same
 					//In this class we have HashMap object playerPointsTable which can be returned in method getPlayerPoints.

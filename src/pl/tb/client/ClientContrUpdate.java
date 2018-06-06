@@ -34,16 +34,9 @@ public class ClientContrUpdate extends Task<Integer>{
 				tokens = message.split(";");
 				updateProgress(Integer.parseInt(tokens[2]), MAX_POINTS);
 				updateMessage(message);
-				
-				
-			
+						
 			}
 		}
 		
 	}
-		
-
-	
-	
-
 }
