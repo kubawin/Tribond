@@ -181,13 +181,10 @@ public class ClientController {
 						btnTrue.setDisable(true);
 						btnFalse.setDisable(true);
 						lblAnswer.setVisible(false);
-//						btnRollDice.setDisable(false);
 					}
 					else {
 						btnTrue.setDisable(false);
 						btnFalse.setDisable(false);
-//						btnRollDice.setDisable(true);
-						lblAnswer.setVisible(true);
 					}
 					
 				}
@@ -201,14 +198,12 @@ public class ClientController {
 					if (this.thisNick.equals(tokens[8])) {
 						btnTrue.setDisable(true);
 						btnFalse.setDisable(true);
-//						btnRollDice.setDisable(false);
 						lblAnswer.setVisible(false);
 					}
 					else {
 						btnTrue.setDisable(false);
 						btnFalse.setDisable(false);
-//						btnRollDice.setDisable(true);
-						lblAnswer.setVisible(true);
+
 					}
 				}
 			

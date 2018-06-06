@@ -65,8 +65,8 @@ public class ServerClient extends Thread {
 				} else if (actionToken[0].equals("QUESTION")) {
 					token = "CLIENT";
 					playerByTheTable = actionToken[1];
+					
 					dice = (int)(Math.random()*5 + 1);
-				
 					
 					if (questions.getAmountOfQuestions() ==0) questions.loadQuestions(); //Reloading questions
 					int questionNumber = (int) (Math.random() * questions.getAmountOfQuestions());
@@ -96,7 +96,7 @@ public class ServerClient extends Thread {
 					for (ServerClient sc : clientList) {
 						if (sc.getPlayerPoints().get(opponent) != null) {
 							if (approved == true) {
-								sc.getPlayerPoints().compute(opponent, (k,v) -> v += dice);
+								sc.getPlayerPoints().compute(opponent, (k,v) -> v += sc.dice);
 								points = sc.getPlayerPoints().get(opponent);
 								playerNick = opponent;
 								break;
