@@ -1,7 +1,10 @@
 package pl.tb.client;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -11,6 +14,9 @@ import java.util.ArrayList;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -19,7 +25,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import pl.tb.classes.Questions;
+import pl.tb.client.login.ClientLogInControler;
 import pl.tb.preparation.client.UpdateClientGUI;
 
 public class ClientController {
@@ -37,6 +45,8 @@ public class ClientController {
 	Label lblQuestion;
 	@FXML
 	Label lblAnswer;
+	@FXML
+	Label lblPlayer;
 	@FXML
 	Label lblPlayer1;
 	@FXML
@@ -65,6 +75,8 @@ public class ClientController {
 	TextArea txtChatMessage;
 	@FXML
 	TextArea txtChatMonitor;
+	@FXML
+	ImageView iv;
 	
 	private int diceResult, thisPlayerNumber, playerByTheTable;
 	private String[] questionSet;
@@ -74,23 +86,30 @@ public class ClientController {
 	private BufferedReader bufferedReader;
 	private PrintWriter printWriter;
 	private ArrayList<String> players;
+	private Image imgBackground;
+	private InputStream inputImage;
+	private int port;
+	private String host;
 	
 	private ClientContrUpdate controllersUpdater;
-
 	
+	public ClientController() throws FileNotFoundException {
+		inputImage = ClientController.class.getClassLoader().getResourceAsStream("resources/background.jpg");
+		imgBackground = new Image(inputImage);
+	}
 	
 	@FXML
 	public void initialize() throws UnknownHostException, IOException {
-		//Initializig catgory images
-//		Image artIcon = new Image(getClass().getResourceAsStream("/art.png"));
-//		Image sportIcon = new Image(getClass().getResourceAsStream("/sport.png"));
-//		Image scienceIcon = new Image(getClass().getResourceAsStream("/science.png"));
-//		Image stuffIcon = new Image(getClass().getResourceAsStream("/stuff.png"));
-//		
-//		lblImgSport.setGraphic(new ImageView(sportIcon));
-//		lblImgArt.setGraphic(new ImageView(artIcon));
-//		lblImgScience.setGraphic(new ImageView(scienceIcon));
-//		lblImgMisc.setGraphic(new ImageView(stuffIcon));
+		iv.setImage(imgBackground);
+		iv.setPreserveRatio(true);
+		iv.fitHeightProperty();
+		iv.setFitHeight(700);
+		lblDiceCategory.setText("");
+		lblPlayer2.setText("awaiting");
+		lblPlayerByTheTable.setText("");
+		
+		
+		txtChatMonitor.setEditable(false);
 		
 		playerLogIn(); //If the player input correct nick, will be connected to the server.
 		connectClientToServer();  //Establishes connection to the server.
@@ -99,14 +118,27 @@ public class ClientController {
 
 	@FXML
 	private void playerLogIn() {
-		//It opens a new dialog window where a new player has to input its nick
-		//After it's done a method connectClientToServer() will be invoked.
-		TextInputDialog inputDialog = new TextInputDialog();
-		inputDialog.setContentText("Nick");
-		inputDialog.setHeaderText("Podaj nick");
-		inputDialog.getDialogPane().setPrefWidth(300);
-		inputDialog.showAndWait();
-		thisNick = inputDialog.getResult();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("login/ClientLogInWindow.fxml"));
+			Parent root = (Parent) loader.load();
+			root.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+			ClientLogInControler cli = loader.getController();
+			
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.setResizable(false);
+			stage.showAndWait();
+			stage.toBack();
+			
+			thisNick = cli.getLogin();
+			port = cli.getPort();
+			host = cli.getHost();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		
 		if (thisNick.equals("") || thisNick.isEmpty() || thisNick.equals(null)) {
 			System.out.println("Nie podano ¿adnego nicka.");
@@ -117,7 +149,10 @@ public class ClientController {
 	
 	@FXML
 	public void rollDice() {
-		printWriter.println("QUESTION;"+this.thisNick);
+		if (lblPlayerByTheTable.getText().equals(thisNick) || lblPlayerByTheTable.getText().equals("Roll a dice"))
+			if (!lblPlayer2.getText().equals("awaiting"))
+				if (lblDiceCategory.getText().equals("Dice: 0"))
+					printWriter.println("QUESTION;"+this.thisNick);
 	}
 	
 	@FXML
@@ -130,16 +165,20 @@ public class ClientController {
 	
 	@FXML
 	public void approvalForAnswer() {
-		String opponent = lblPlayerByTheTable.getText();
-		Boolean approval = true;
-		printWriter.println("APPROVAL;"+opponent+";"+approval+";"+this.thisNick);
+		if (!lblDiceCategory.getText().equals("Dice: 0")) {
+			String opponent = lblPlayerByTheTable.getText();
+			Boolean approval = true;
+			printWriter.println("APPROVAL;"+opponent+";"+approval+";"+this.thisNick);
+		}
 	}
 	
 	@FXML
 	public void disapprovalForAnswer() {
-		String opponent = lblPlayerByTheTable.getText();
-		Boolean approval = false;
-		printWriter.println("APPROVAL;"+opponent+";"+approval+";"+this.thisNick);
+		if (!lblDiceCategory.getText().equals("Dice: 0")) {
+			String opponent = lblPlayerByTheTable.getText();
+			Boolean approval = false;
+			printWriter.println("APPROVAL;"+opponent+";"+approval+";"+this.thisNick);
+		}
 	}
 	
 	public void connectClientToServer() throws UnknownHostException, IOException {
@@ -148,8 +187,7 @@ public class ClientController {
 		 * which runs a new thread. 
 		 */
 		
-		String myHost = InetAddress.getLocalHost().getHostName();
-		socket = new Socket(myHost, 8989);
+		socket = new Socket(host, port);
 		controllersUpdater = new ClientContrUpdate(socket);
 		
 		//Binding controllers
@@ -172,7 +210,8 @@ public class ClientController {
 			if (tokens[7].equals("CLIENT")) { //Check if the message is for updating CLIENTs details or just CHAT.
 				if (tokens[1].equals(this.thisNick)) { //This checks if the information should update this client or the another one
 					lblPlayer1.setText(tokens[1]);
-					lblAnswer.setText(tokens[4]);
+					lblPlayer.setText("Hi, " + lblPlayer1.getText() + "!");
+					lblAnswer.setText("Answer: " + tokens[4]);
 					progbPlayer1.setProgress((double) (Double.parseDouble(tokens[2]) / controllersUpdater.MAX_POINTS));
 					lblPlayer1Points.setText(tokens[2]);
 					
@@ -185,12 +224,14 @@ public class ClientController {
 					else {
 						btnTrue.setDisable(false);
 						btnFalse.setDisable(false);
+						lblAnswer.setVisible(true);
 					}
 					
 				}
 				else {
+					
 					lblPlayer2.setText(tokens[1]);
-					lblAnswer.setText(tokens[4]);
+					lblAnswer.setText("Answer: " + tokens[4]);
 					progbPlayer2.setProgress((double) (Double.parseDouble(tokens[2]) / controllersUpdater.MAX_POINTS));
 					lblPlayer2Points.setText(tokens[2]);
 					
@@ -203,12 +244,13 @@ public class ClientController {
 					else {
 						btnTrue.setDisable(false);
 						btnFalse.setDisable(false);
+						lblAnswer.setVisible(true);
 
 					}
 				}
 			
 				//Common controllers
-				lblQuestion.setText(tokens[3]);
+				lblQuestion.setText("What those three things have in common?\n" + tokens[3]);
 				lblPlayerByTheTable.setText(tokens[8]);
 				lblDiceCategory.setText("Dice: " + tokens[5] ); //+ "\nKategoria: " + tokens[4]);
 				

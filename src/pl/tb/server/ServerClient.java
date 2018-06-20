@@ -66,13 +66,16 @@ public class ServerClient extends Thread {
 					token = "CLIENT";
 					playerByTheTable = actionToken[1];
 					
-					dice = (int)(Math.random()*5 + 1);
+					dice = (int)((Math.random()*6)+1);
 					
 					if (questions.getAmountOfQuestions() ==0) questions.loadQuestions(); //Reloading questions
 					int questionNumber = (int) (Math.random() * questions.getAmountOfQuestions());
 					questionSet = questions.getQuestionSet(questionNumber);
 					answer = questionSet[3];
-					question = questionSet[0] + "," + questionSet[1] + "," + questionSet[2] ;
+					question = 
+							questionSet[0].toUpperCase()
+							+ ", " + questionSet[1].toUpperCase()
+							+ ", " + questionSet[2].toUpperCase();
 				} else if (actionToken[0].equals("CHAT")) {
 					token = "CHAT";
 					question = actionToken[1]; 
@@ -80,9 +83,11 @@ public class ServerClient extends Thread {
 					playerNick = actionToken[2];
 				} else if (actionToken[0].equals("APPROVAL")) {
 					token = "CLIENT";
+					dice = 0;
 					String opponent = actionToken[1];
 					Boolean approved = Boolean.parseBoolean(actionToken[2]);
 					question = "Roll a dice and answer question.";
+					answer = " ";
 					clientNumber = 1;
 					if (approved)
 						 playerByTheTable = actionToken[1];

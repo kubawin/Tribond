@@ -37,6 +37,11 @@ public class ServerConn extends Thread {
 	
 	
 }
+	
+	public void stopServer() throws Throwable {
+		System.exit(0);
+		
+}
 
 
 	
