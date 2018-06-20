@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tb.client.login.ClientLogInControler">
+   <children>
+      <GridPane layoutX="150.0" layoutY="172.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="383.0" minHeight="10.0" prefHeight="302.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="ivImage" fitHeight="402.0" fitWidth="401.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" GridPane.columnSpan="2" GridPane.rowSpan="4">
+               <GridPane.margin>
+                  <Insets bottom="130.0" left="75.0" />
+               </GridPane.margin>
+            </ImageView>
+            <Button fx:id="tbnRunServer" mnemonicParsing="false" onAction="#runServer" prefHeight="25.0" prefWidth="90.0" text="Run server" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="btnLogIn" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="90.0" text="Login" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></Button>
+            <TextField fx:id="txtHost" prefHeight="25.0" prefWidth="105.0" promptText="Host" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtPort" promptText="Port" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtLogIn" promptText="Nick" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></TextField>
+            <Label fx:id="label" style="-fx-text-fill: #FF0000;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" top="-40.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblServer" style="-fx-text-fill: #9ACD32;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="3">
+               <GridPane.margin>
+                  <Insets left="5.0" top="210.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="lblPortHost" style="-fx-text-fill: #FF0000;" text="Label" GridPane.columnIndex="1" GridPane.rowSpan="4">
+               <GridPane.margin>
+                  <Insets left="5.0" top="235.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
